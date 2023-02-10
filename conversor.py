@@ -140,3 +140,4 @@ class Conversor:
                 elif hexa[i] == 'F':
                     dec += 15*pow(16,i)
         return dec
+

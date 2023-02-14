@@ -1,7 +1,7 @@
 class Conversor:
     def __init__(self):
         self.dicBinToOct = {
-            '000':'0', '001':'1', '010':'2', '011':'3', '100':'4', '101':'5', '110':'6', '111':'7'
+            '000' : '0', '001' : '1', '010' : '2', '011' :'3', '100' : '4', '101' :'5', '110' : '6', '111' : '7'
         }
         self.dicBinToHex = {
             '0000': '0', '0001': '1', '0010': '2', '0011': '3', '0100': '4', '0101': '5', '0110': '6', '0111': '7',
@@ -109,7 +109,6 @@ class Conversor:
 
     def oct_hex(self,octal:str)->str:
         tmp = self.oct_bin(octal)
-        print(tmp)
         return self.bin_hex(tmp)
 
     def hex_bin(self, hexa:str)->str:
@@ -141,3 +140,29 @@ class Conversor:
                     dec += 15*pow(16,i)
         return dec
 
+class verificador:
+    def __init__(self):
+        pass
+
+    def isBinario(self,num:str)->bool:
+        chars = ['0','1']
+        for i in range(len(num)):
+           if not any([char in num[i] for char in chars]):
+               return False
+        return True
+
+    def isOctal(self,num:str)->bool:
+        chars = ['0', '1', '2', '3', '4', '5', '6', '7']
+        for i in range(len(num)):
+           if not any([char in num[i] for char in chars]):
+               return False
+        return True
+
+    def isDecimal(self,num:str)->bool:
+        return num.isdigit()
+    def isHexadecimal(self,num:str)->bool:
+        chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+        for i in range(len(num)):
+            if not any([char in num[i] for char in chars]):
+                return False
+        return True

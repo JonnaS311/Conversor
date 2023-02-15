@@ -5,7 +5,16 @@ def main(page: ft.Page):
     page.padding = 0
     page.title = "MyConversor"
     page.bgcolor = ft.colors.WHITE
+    page.window_maximizable = False
+    page.theme_mode = ft.ThemeMode.LIGHT
 
+    dlg = ft.AlertDialog(title=ft.Text("El número que colocó está mal compuesto 😒",color=ft.colors.BLACK),
+                         shape=ft.RoundedRectangleBorder(radius=5))
+
+    def open_dlg(e):
+        page.dialog = dlg
+        dlg.open = True
+        page.update()
     def click(e):
         vf = conversor.verificador()
         if fromNumber.value == 'Binario' and vf.isBinario(number.value):
@@ -19,16 +28,7 @@ def main(page: ft.Page):
         else:
             open_dlg(e)
         page.update()
-
-    dlg = ft.AlertDialog(
-        title=ft.Text("El número que colocó está mal compuesto 😒",color=ft.colors.BLACK)
-    )
-
-    def open_dlg(e):
-        page.dialog = dlg
-        dlg.open = True
-        page.update()
-
+    ft.TextStyle()
     fromNumber = ft.Dropdown(
         hint_text="El número está en...",
         hint_style= ft.TextStyle(color=ft.colors.BLACK),
@@ -39,6 +39,8 @@ def main(page: ft.Page):
             ft.dropdown.Option("Decimal"),
             ft.dropdown.Option("Hexadecimal")
         ],
+        focused_border_color= ft.colors.TEAL_ACCENT_700,
+
     )
     toNumber = ft.Dropdown(
         hint_text="El número se convertira a...",
@@ -50,16 +52,20 @@ def main(page: ft.Page):
             ft.dropdown.Option("Decimal"),
             ft.dropdown.Option("Hexadecimal")
         ],
+        focused_border_color=ft.colors.TEAL_ACCENT_700,
+
     )
     grupo = ft.Text("Jonnathan Sotelo Rodríguez-20202020040 / Handersson Felipe Pacheco Espitia-20202020053 / Ana Gabriela Guevara-20202020013 / Alvarez Omar Armando Neira Ordoñez-20192020110"
-                    ,size=11,text_align=ft.TextAlign.CENTER)
+                    ,size=11,text_align=ft.TextAlign.CENTER,color="WHITE")
     resultado = ft.Text("No haz hecho niguna operación aun! 🤓",color=ft.colors.BLACK)
     btnOperar = ft.ElevatedButton("Realizar Operación",icon=ft.icons.KEYBOARD_ARROW_RIGHT_ROUNDED,
                                   bgcolor=ft.colors.TEAL_ACCENT_700,color=ft.colors.WHITE,on_click=click)
     number = ft.TextField(label="Número a convertir ✍️", border=ft.InputBorder.UNDERLINE,color=ft.colors.BLACK
                            ,focused_border_color=ft.colors.TEAL_ACCENT_700,focused_color=ft.colors.BLACK,
                            label_style=ft.TextStyle(color=ft.colors.TEAL_ACCENT_700,size=14))
-    contenedor = ft.Container(content=ft.Column(controls=[ft.Text("Conversor de Números", size=20,color=ft.colors.BLACK),
+    contenedor = ft.Container(content=ft.Column(controls=[
+                                     ft.Text("Conversor de Números", weight=ft.FontWeight.BOLD,
+                                             size=20,color=ft.colors.BLACK),
                                      fromNumber,
                                      toNumber,
                                      number,
@@ -68,11 +74,21 @@ def main(page: ft.Page):
                                     expand=True,padding=50)
     info = ft.Container(bgcolor=ft.colors.TEAL_ACCENT_700,
                         content=ft.Column(
-                        controls=[grupo],horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
-                        alignment=ft.MainAxisAlignment.START),
+                        controls=[
+                            ft.Text("🤔 Sistema Binario", size=20,weight=ft.FontWeight.BOLD,color="WHITE"),
+                            ft.Text("El sistema binario, también llamado sistema diádico en ciencias de la computación, es un sistema de numeración en el que los números son representados utilizando únicamente dos cifras: 0 (cero) y 1 (uno).",
+                                    text_align=ft.TextAlign.JUSTIFY,color="WHITE"),
+                            ft.Text("🤔 Sistema Octal",size=20,weight=ft.FontWeight.BOLD,color="WHITE"),
+                            ft.Text("El sistema octal es el sistema de numeración posicional cuya base es igual 8, utilizando los dígitos indio arábigos: 0,1,2,3,4,5,6,7. En informática a veces se utiliza la numeración octal en vez de la hexadecimal. Tiene la ventaja de que no requiere utilizar otros símbolos diferentes de los dígitos.",
+                                    text_align=ft.TextAlign.JUSTIFY,color="WHITE"),
+                            ft.Text("🤔 Sistema Hexadecimal", size=20,weight=ft.FontWeight.BOLD,color="WHITE"),
+                            ft.Text("El sistema hexadecimal (abreviado hex.) es el sistema de numeración posicional que tiene como base el 16. Su uso actual está muy vinculado a la informática y ciencias de la computación donde las operaciones de la CPU suelen usar el byte u octeto como unidad básica de memoria.",
+                                    text_align=ft.TextAlign.JUSTIFY,color="WHITE")
+                            ,grupo],horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
+                        alignment=ft.MainAxisAlignment.SPACE_AROUND),
                         expand= True,
                         height= page.window_height,
-                        padding=10)
+                        padding=50)
     row = ft.Row(
         spacing=10,
         run_spacing=0,
